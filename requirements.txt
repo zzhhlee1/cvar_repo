@@ -1,0 +1,7 @@
+# The exact DP engines use only the Python standard library.
+# These optional packages are needed only for the extras noted:
+numpy         # plotting / a few numeric helpers
+matplotlib    # figures
+requests      # re-fetching public data (reproduce/scripts/fetch_*)
+urllib3       # re-fetching public data
+pytest        # running the kill-test / unit tests

@@ -1,0 +1,6 @@
+C,rho,lane,prize_without,prize_with,delta_pp,with_acc_mean,with_oversell_prob,with_bump_mean,with_offload_cost
+7,0.714,loose/normal,0.0006,0.0013,0.07,4.996,0.054,0.0127,0.127
+6,0.833,loose/normal,0.0022,0.0033,0.1,4.957,0.151,0.0533,0.533
+5,1.0,normal,0.02,0.0189,-0.11,4.826,0.313,0.1539,1.539
+4,1.25,tight/peak,0.0873,0.0817,-0.56,4.415,0.474,0.2695,2.695
+3,1.667,crisis/stress,0.1626,0.1514,-1.13,3.743,0.583,0.4044,4.044
