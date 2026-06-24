@@ -45,7 +45,7 @@ def main():
     for name, rho, _ in TIERS:
         a = cell(grid, rho, ANCHOR); s = cell(grid, rho, STRONG)
         e = cell(grid, rho, EXTREME) if any(abs(r["rho_target"]-rho)<1e-9 and abs(r["delta"]-EXTREME)<1e-9 for r in grid) else None
-        rows.append(dict(tier=name, rho=rho, prize_pct_anchor=a["prize_pct"], prize_pct_strong=s["prize_pct"],
+        rows.append(dict(tier=name, rho=rho, rho_real=a["rho_real"], prize_pct_anchor=a["prize_pct"], prize_pct_strong=s["prize_pct"],
                          prize_pct_extreme=(e["prize_pct"] if e else None),
                          regime_lift_strong=s["regime_lift"], B=a["B"]))
         print(f"{name:>16}{rho:>6.2f}{a['prize_pct']:>13.1f}%{s['prize_pct']:>10.1f}%"
@@ -80,7 +80,7 @@ def plot(rows):
             ax.text(xi + 0.30, r["prize_pct_extreme"], f"delta=5: {r['prize_pct_extreme']:.0f}%",
                     va="center", fontsize=7.5, color="crimson")
     ax.set_xticks(x)
-    ax.set_xticklabels([f"{r['tier']}\nrho={r['rho']:.2f}" for r in rows], fontsize=9)
+    ax.set_xticklabels([f"{r['tier']}\nrho={r['rho_real']:.2f}" for r in rows], fontsize=9)
     ax.set_ylabel("Prize % (value of risk-aversion over risk-neutral)", fontsize=10)
     ax.legend(loc="upper left", fontsize=8.5)
     _tops = list(strong) + [r["prize_pct_extreme"] for r in rows if r["prize_pct_extreme"] is not None]

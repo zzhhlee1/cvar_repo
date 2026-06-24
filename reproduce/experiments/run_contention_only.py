@@ -11,7 +11,7 @@ delta are invariant, only the filler p0 absorbs the change -- pure arrival thinn
 rho = T*p_pos/B then varies with the reward shape held fixed.
 
 Primary    : B=4, T=12, rho in {0.75,1.0,1.25,1.5,1.75,2.0}, full solve_fair (8/8 sanity).
-Robustness : B=5, T=12, same rho grid, operational uplift (solve_ladder).
+Robustness : B=5, T=12, same rho grid, same full solve_fair (8/8 sanity) as primary.
 Verdict    : A/B/C fixed in the pre-registration; tau=0.05 pp.
 Writes outputs/contention_only.csv. Run: uv run python experiments/run_contention_only.py
 """
@@ -140,8 +140,8 @@ def main():
     p = [r["prize_total_pct"] for r in prim]
     v, net = verdict(p)
 
-    print(f"\n-- ROBUSTNESS: B={ROBUST[0]}, T={ROBUST[1]} (operational uplift) --")
-    rob = [run_point(ROBUST[0], ROBUST[1], rho, full=False) for rho in RHO_GRID]
+    print(f"\n-- ROBUSTNESS: B={ROBUST[0]}, T={ROBUST[1]} (full solve_fair, same solver as primary) --")
+    rob = [run_point(ROBUST[0], ROBUST[1], rho, full=True) for rho in RHO_GRID]
     rows += rob
     print("  " + "  ".join(f"rho={r['rho']:.2f}->{r['prize_total_pct']:.2f}%" for r in rob))
     pr = [r["prize_total_pct"] for r in rob]
