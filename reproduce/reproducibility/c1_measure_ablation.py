@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """C1 risk-measure ablation (attack #4): is the risk-eager direction CVaR-lower-tail-specific?
 
-Pre-registered in docs/c1_ablation_preregistration.md (committed BEFORE this script).
+Pre-registered before this script was written.
 Method: same instances, same V1(k)=FLOOR-threshold-shifted-by-k family, same exact
 full-distribution engine (e0_killtest). ONLY the scoring is swapped:
   - CVaR_alpha (lower tail)        [the Finding-2 baseline]

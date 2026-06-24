@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """B fair-baseline prize re-basing -- driver over the scenario ladder (normal/tight/crisis).
 
-Pre-registered in docs/b_fair_baseline_preregistration.md. Reports the three-layer prize
+Pre-registered before this script was written. Reports the three-layer prize
 on the data-anchored delta=1.46 ladder, plus the eps_tie sensitivity (primary stays 1e-9).
 Writes outputs/fair_baseline.csv. Run: uv run python experiments/run_fair_baseline.py
 """

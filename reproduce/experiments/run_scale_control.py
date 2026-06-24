@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Scale-control fixed-B ladder -- rules out the "small-B / small-scale artifact" attack.
 
-Pre-registered in docs/scale_control_preregistration.md (committed before this script).
+Pre-registered before this script was written.
 Route A: fix capacity B, raise offered load rho by raising the booking horizon T
 (rho = T*p_pos/B, p_pos=0.5). Within a fixed B, does the prize still rise with rho?
 

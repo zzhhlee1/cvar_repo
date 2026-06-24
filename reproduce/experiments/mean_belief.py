@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """MEAN-belief baselines for the fair-baseline prize re-basing (B).
 
-Pre-registered in docs/b_fair_baseline_preregistration.md (committed BEFORE this engine).
+Pre-registered before this engine was written.
 Builds two same-information, mean-objective baselines against which to re-base the prize,
 isolating the pure-CVaR value:
 

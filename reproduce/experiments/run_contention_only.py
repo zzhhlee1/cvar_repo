@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Contention-only check (arrival thinning/thickening) -- isolate contention from horizon.
 
-Pre-registered in docs/contention_only_preregistration.md (committed before this script).
+Pre-registered before this script was written.
 
 Unlike the fixed-B-through-T check (which raises rho by lengthening the horizon T, and so
 confounds contention with horizon dilution), this fixes B AND T and varies ONLY the
@@ -84,7 +84,7 @@ def run_point(B, T, rho, full):
 def verdict(p):
     """Deterministic over RHO_GRID (len 6); index 0=rho0.75 ... 5=rho2.0.
 
-    ADJUDICATED rule (see docs/contention_only_preregistration.md sec. 9). The original
+    ADJUDICATED rule (pre-registered before the run). The original
     endpoint-based C-trigger (net p[5]-p[1] <= tau, or p[5] < p[2]) mis-classified an
     inverted-U as C, because a deep high-load rollback makes the rho=1.0 and rho=2.0
     endpoints coincide. C's verbal meaning is "does not rise or reverses" -- contradicted by
@@ -114,7 +114,7 @@ LANDING = {
     "B'": "Risk-aversion value is HUMP-SHAPED in offered load at fixed B,T: low-to-mid rise "
           "(operational stress range -- not a horizon artifact) then high-load rollback "
           "(intrinsic finite-scale saturation, since T is fixed). See adjudication note, "
-          "docs/contention_only_preregistration.md sec. 9.",
+          "the pre-registered adjudication rule.",
     "C": "DOWNGRADE: contention does not raise value at fixed horizon -> 8-17% becomes a "
          "scenario-specific stress result; drop 'contention mechanism is isolated'.",
 }

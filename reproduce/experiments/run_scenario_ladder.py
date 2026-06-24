@@ -3,7 +3,7 @@
 
 **护栏:本脚本不做任何新计算**,只**读** experiments/outputs/phase_grid.json 的现成格子,
 按 ρ 归三档(常态/紧张/危机),取 δ=1.46(数据锚)为中心值、δ=3.0 为强分歧上沿(范围)。
-缺格 → 报错,不补造。现实对应见 docs/stress_evidence.md([已核]IATA 2021)。
+缺格 → 报错,不补造。现实对应见 IATA 2021 记录的运力紧缩。
 
 运行:uv run --group viz python experiments/run_scenario_ladder.py
 """
@@ -16,7 +16,7 @@ OUT = ROOT / "experiments" / "outputs"
 GRID = OUT / "phase_grid.json"
 ANCHOR, STRONG, EXTREME = 1.46, 3.0, 5.0
 
-# 三档:代表 ρ + 现实对应(现实证据在 docs/stress_evidence.md)
+# 三档:代表 ρ + 现实对应(见 IATA 2021 运力紧缩记录)
 TIERS = [
     ("Normal lane",  0.95, "off-peak; ample belly"),
     ("Tight", 1.25, "Q4 peak season; flights full"),
@@ -55,7 +55,7 @@ def main():
     plot(rows)
     print(f"\n写出 → {(OUT/'scenario_ladder.csv').relative_to(ROOT)} + scenario_ladder.png/pdf")
     print("读法:风险厌恶价值随档位攀升——常态≈0、紧张可见、危机显著;regime_lift 小且不稳健(见 README),"
-          "稳健驱动是 contention。ρ>1 的现实性见 docs/stress_evidence.md。")
+          "稳健驱动是 contention。ρ>1 的现实性见 IATA 2021 运力紧缩记录。")
 
 
 def plot(rows):

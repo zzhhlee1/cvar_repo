@@ -2,10 +2,10 @@
 
 数据来源（不随本仓分发，CC BY 4.0）:
   UCI ML Repository id 382 "Cargo 2000 Freight Tracking and Tracing" (Metzger et al.).
-  本地副本: ~/cargo_data/github-uci-cargo/c2k_data_comma.csv
+  本地副本: data/raw/c2k/c2k_data_comma.csv
   3943 实例 × 98 列；每条 leg 的 RCS->DEP->RCF->DLV 各有 planned(_p)/effective(_e) 分钟时长。
 
-这个脚本证明什么 / 不证明什么（见 docs/c2k_audit.md）:
+这个脚本证明什么 / 不证明什么:
   - 证明 (motivation): 真实货运履约延误极右偏——均值/中位是"提前"，
     但重延误上尾巨大；mean 掩盖尾，CVaR 才抓得住。=> "为什么用 CVaR 而非 mean"的真实锚。
   - 不证明 (validation): C2K 无容量/航班映射、无到达流、无收入，
@@ -17,7 +17,7 @@
 import csv, sys, statistics as st
 from pathlib import Path
 
-DEFAULT = Path.home() / "cargo_data/github-uci-cargo/c2k_data_comma.csv"
+DEFAULT = Path(__file__).resolve().parents[2] / "data/raw/c2k/c2k_data_comma.csv"
 
 
 def cvar_upper(xs, a):
@@ -55,5 +55,5 @@ def main(path):
 if __name__ == "__main__":
     p = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT
     if not p.exists():
-        sys.exit(f"找不到 C2K 数据: {p}\n（数据来自 ~/cargo_data, 不随本仓分发；见 docs/c2k_audit.md）")
+        sys.exit(f"找不到 C2K 数据: {p}\n（C2K 数据见 data/raw/c2k/）")
     main(p)

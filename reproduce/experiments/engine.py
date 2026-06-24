@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""精确 two-regime 在线分配 oracle ladder —— 从 c8_theory/src/c8_regime.py 忠实移植 + 参数化。
+"""精确 two-regime 在线分配 oracle ladder(参数化精确 DP 引擎)。
 
 第一期应用引擎:unit-capacity、terminal-CVaR、隐 two-regime(P1)。策略全部可由精确 DP 算:
   FLOOR    风险中性最优(混合边际 q 上,状态 (t,k))—— DMD 的收敛对象。
@@ -10,7 +10,7 @@
 
 移植 = 逻辑不动、仅 globals→参数(同 cvar_lower 修复、同信念 DP)。第一期不含 DMD/重量/show-up。
 价值档 R 用**小整数**(value 形状;美元尺度是事后乘子,不影响 prize 结构),否则 η 循环 0..B·max(R) 爆。
-出处:c8_theory(github c8_theory)/src/c8_regime.py,已在理论篇验证(信息三明治 + DP==前向)。
+自检:信息三明治 + DP==前向枚举(见 self_check)。
 """
 import math
 from functools import lru_cache
@@ -214,19 +214,19 @@ def solve_ladder(R, probs, pi, T, B, alpha):
 
 
 def self_check():
-    """移植忠实性自检:复现 c8_theory/c8_regime 的已知锚点 + 信息三明治。"""
+    """引擎自检:复现已知锚点 + 信息三明治。"""
     R = (0, 2, 10); probs = ((0.6, 0.35, 0.05), (0.3, 0.3, 0.4)); pi = (0.6, 0.4)
     L = solve_ladder(R, probs, pi, 10, 4, 0.2)
-    exp = dict(floor=4.132, v1=4.799, online=5.239, info=5.239)   # c8_theory regret_scan T10B4
+    exp = dict(floor=4.132, v1=4.799, online=5.239, info=5.239)   # known anchor at T10B4
     ok = all(abs(L[k] - exp[k]) < 5e-3 for k in exp)
     sw = L['floor'] <= L['v1'] + 1e-6 <= 1e18 and L['v1'] <= L['online'] + 1e-6 <= L['info'] + 1e-6
     print(f"  锚点 T10B4: floor={L['floor']:.3f} v1={L['v1']:.3f} online={L['online']:.3f} info={L['info']:.3f}")
-    print(f"  期望(c8_theory): floor=4.132 v1=4.799 online=5.239 info=5.239")
+    print(f"  期望(锚点): floor=4.132 v1=4.799 online=5.239 info=5.239")
     print(f"  [{'PASS' if ok else 'FAIL'}] 移植复现锚点   [{'PASS' if sw else 'FAIL'}] 信息三明治 FLOOR≤V1≤ONLINE*≤INFO")
     return ok and sw
 
 
 if __name__ == "__main__":
     import sys
-    print("=== engine.py 移植自检(vs c8_theory)===")
+    print("=== engine.py 引擎自检(锚点复现)===")
     sys.exit(0 if self_check() else 1)
