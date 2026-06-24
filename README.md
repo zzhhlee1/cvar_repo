@@ -1,4 +1,4 @@
-# Replication package — "When Does Risk Aversion Pay in Online Cargo Booking? A Tail-Deviation Characterization, Calibrated to Public Air-Cargo Data"
+# Replication package — "Terminal CVaR Breaks Bid-Price Control: When Risk Aversion Pays in Online Cargo Booking"
 
 Code and public data to reproduce every figure, table, and reported number.
 
