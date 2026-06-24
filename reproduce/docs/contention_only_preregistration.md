@@ -1,5 +1,9 @@
 # Contention-only check（arrival thinning/thickening）· 预登记（PRE-REGISTRATION）
 
+> **出处时间线 (provenance).** 本预注册在对应运行/结果**之前**提交于原始研发仓库;本公开镜像仓是后期 scrub 出的全新仓,其扁平 git 历史**不**保留此先后。可核的原始时间戳:
+> - 预注册(本文件):`2ae42f4` @ 2026-06-18 15:55:14 +0800
+> - 运行 + 结果:`18782f8` @ 2026-06-18 16:29:55 +0800（+34 分钟后）
+
 > **本表在写/跑任何 contention-only 结果之前 commit。** 复用现有精确引擎
 > （`engine.solve_ladder` / `mean_belief.solve_fair`），**不新增 solver**；只加一个实例
 > 构造器，把 offered-load 强度 `p_pos` 设为自由旋钮，并保持 conditional reward shape 与 δ

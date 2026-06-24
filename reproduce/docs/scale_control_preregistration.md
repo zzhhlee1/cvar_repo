@@ -1,5 +1,9 @@
 # Scale-control 固定-B ladder · 预登记（PRE-REGISTRATION）— 堵 "小 B / 小尺度 artifact"
 
+> **出处时间线 (provenance).** 本预注册在对应运行/结果**之前**提交于原始研发仓库;本公开镜像仓是后期 scrub 出的全新仓,其扁平 git 历史**不**保留此先后。可核的原始时间戳:
+> - 预注册(本文件):`e8a01b7` @ 2026-06-18 14:41:39 +0800
+> - 运行 + 结果:`9562f32` @ 2026-06-18 14:43:46 +0800（+2 分钟后）
+
 > **本表在跑任何 scale-control 结果之前 commit。** 复用现有引擎（`engine.solve_ladder` /
 > `mean_belief.solve_fair`），无新引擎；只把 B/T/ρ mapping、primary/replication、裁决、落文
 > 方式定死，杜绝 peek-then-pick。脚本与结果是**下一次**提交。
