@@ -81,20 +81,15 @@ def plot(rows):
                     va="center", fontsize=7.5, color="crimson")
     ax.set_xticks(x)
     ax.set_xticklabels([f"{r['tier']}\nrho={r['rho']:.2f}" for r in rows], fontsize=9)
-    ax.set_ylabel("prize %  =  value of risk-aversion over risk-neutral (CVaR(ONLINE*)-CVaR(FLOOR)) / ONLINE*")
-    ax.set_title("When does risk-averse air-cargo allocation pay?  A scenario ladder", fontsize=12)
+    ax.set_ylabel("Prize % (value of risk-aversion over risk-neutral)", fontsize=10)
     ax.legend(loc="upper left", fontsize=8.5)
-    ax.set_ylim(0, max(strong) * 1.35 + 5)
+    _tops = list(strong) + [r["prize_pct_extreme"] for r in rows if r["prize_pct_extreme"] is not None]
+    ax.set_ylim(0, max(_tops) * 1.12 + 3)
     for xi, (_, _, analog) in zip(x, TIERS):
         ax.annotate(analog, (xi, 0), (xi, -max(strong) * 0.16), ha="center", va="top",
                     fontsize=7.3, color="dimgray", annotation_clip=False,
                     arrowprops=dict(arrowstyle="-", color="lightgray", lw=0.6))
-    fig.text(0.5, 0.005,
-             "Read from phase_grid.json (NOT recomputed). Value tiers SYNTHETIC; rho from BTS T-100 freighter, delta=1.46 from FRED. "
-             "rho>1 = flight/lane/peak-level stress (offload, rate spikes; aggregate LF masks it) — evidence: docs/stress_evidence.md. "
-             "regime_lift small & parameter-dependent; robust driver is contention.",
-             ha="center", fontsize=7)
-    fig.tight_layout(rect=[0, 0.10, 1, 1])
+    fig.tight_layout()
     for ext in ("png", "pdf"):
         fig.savefig(OUT / f"scenario_ladder.{ext}", dpi=140, bbox_inches="tight")
 
