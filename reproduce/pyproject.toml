@@ -1,0 +1,16 @@
+[project]
+name = "cvar-cargo-repro"
+version = "0.1.0"
+description = "Reproduction package: risk-averse (terminal-CVaR) bid-price control in online air-cargo booking"
+requires-python = ">=3.10"
+# Core dependency: the exact DP / fast scale-up engines use numpy; everything else is stdlib.
+dependencies = ["numpy>=1.24"]
+
+# Plotting is isolated in a 'viz' group so the engines reproduce without matplotlib.
+# Compute:  uv run python experiments/run_hump_surface.py
+# Figures:  uv run --group viz python experiments/plot_hump_surface.py
+[dependency-groups]
+viz = ["matplotlib>=3.7"]
+
+[tool.uv]
+package = false
