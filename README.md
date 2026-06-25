@@ -1,4 +1,4 @@
-# Replication package — "Terminal CVaR Breaks Bid-Price Control: When Risk Aversion Pays in Online Cargo Booking"
+# Replication package — "Risk-averse bid-price control in air-cargo booking: When compression fails under terminal CVaR, and what it is worth"
 
 Code and public data to reproduce every figure, table, and reported number.
 
