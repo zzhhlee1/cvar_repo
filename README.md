@@ -1,4 +1,4 @@
-# Replication package — "Risk-averse bid-price control in air-cargo booking: When compression fails under terminal CVaR, and what it is worth"
+# Replication package — "A tail-deviation analysis of terminal-CVaR bid-price control in online air-cargo booking"
 
 Code and public data to reproduce every figure, table, and reported number.
 
