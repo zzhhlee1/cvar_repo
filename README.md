@@ -12,7 +12,7 @@ Code and public data to reproduce every figure, table, and reported number.
   plus appendix-level scale diagnostics.
 - `reproduce/scripts/` — calibration build chain (public raw data → tables).
 - `data/raw/` — cached public source data (see Data & licenses).
-- `data/processed/` — derived tables; not committed, rebuilt by the scripts (~150 MB).
+- `data/processed/` — derived tables (~150 MB), rebuilt by the scripts; the 16 KB `sim_calibration.json` the experiments read is committed under `reproduce/data/processed/`.
 
 ## Requirements
 Python 3.10+. The exact DP engines use only the standard library

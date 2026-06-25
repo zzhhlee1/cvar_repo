@@ -39,6 +39,8 @@
 `scripts/fetch_air_cargo_public_data.py` → `scripts/build_air_cargo_mvp_dataset.py` → `scripts/calibrate_sim_params.py`
 （从 `data/raw` 的 BTS/FRED 重建 `data/processed`；FRED δ=1.4612、BTS freighter 0.3834）
 
+> 实验直接读已提交的 `data/processed/sim_calibration.json`(16 KB,无需先跑 build);上面的 build chain 仅用于从 raw 重建完整 `data/processed`(~150 MB 原始/中间表)。
+
 ## 引擎可信度
 `reproducibility/e0_killtest.py` + `test_e0_killtest.py`（28 passed，10/12 mutants killed）
 
