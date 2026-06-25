@@ -25,6 +25,9 @@
 |---|---|---|
 | 三 cell 1.5/8.3/16.6% | `experiments/run_scenario_ladder.py` | `outputs/scenario_ladder.csv` |
 | contention-only 驼峰 0.9→14.5→6.6% | `experiments/run_contention_only.py` | `outputs/contention_only.csv` |
+| hump 面 151 格 (B×T×ρ) | `experiments/run_hump_surface.py` `plot_hump_surface.py` | `outputs/hump_surface.csv` |
+| 筛查验证 148 格 (Prop 4 + ρ 筛子) | `experiments/run_screening.py` `plot_screening.py` | `outputs/screening.csv` |
+| 敏感性 facet 432 配置 | `experiments/plot_sensitivity_facet.py` | `outputs/sensitivity_grid.csv` |
 | 稳健性 S1=7/7,S2=4/7 | `experiments/run_robustness.py` | `outputs/robustness.csv` |
 | 相图 ρ×δ | `experiments/run_phase_diagram.py` | `outputs/phase_grid.csv` |
 | show-up/offload d/r≈3.5 | `experiments/run_showup_sweep.py` `showup_engine.py` | `outputs/showup_sweep.csv` |
