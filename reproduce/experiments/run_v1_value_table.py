@@ -8,7 +8,7 @@ managerial 主张补一张数表(审稿人指出它缺表支撑)。
 正文 tab:ladder(FLOOR 9.33/8.21/6.75、ONLINE* 9.48/8.96/8.09≈9.5/9.0/8.1)逐档一致。
 对不上即构造未对齐,脚本会直接报错(self-check)。
 
-对三格(normal ρ=0.95 B=5、tight ρ=1.25 B=4、crisis ρ=1.67 B=3,锚 δ=1.46)输出:
+对三格(normal ρ_target=0.95→realized 1.0 B=5、tight ρ=1.25 B=4、crisis ρ=1.67 B=3,锚 δ=1.46)输出:
   CVaR(FLOOR)、CVaR(V1)、CVaR(ONLINE*)
   prize       = ONLINE* − FLOOR            (可实现总价值上限)
   v1_gain     = V1 − FLOOR                  (可部署 V1 较 FLOOR 的增益)
@@ -69,7 +69,7 @@ def main():
                   f"{LADDER_ONLINE[name]} 不符 —— 构造未对齐")
 
         rows.append(dict(
-            tier=name, rho=rho, B=B, T=T, alpha=alpha,
+            tier=name, rho=rho, rho_real=round(ins.meta["rho_realized"], 4), B=B, T=T, alpha=alpha,
             cvar_floor=floor, cvar_v1=v1, cvar_online=online,
             prize=prize, prize_pct=100 * prize_pct,
             v1_gain=v1_gain, capture_pct=100 * capture,
@@ -93,13 +93,13 @@ def main():
 
     out = os.path.join(os.path.dirname(__file__), "outputs", "v1_value_table.csv")
     os.makedirs(os.path.dirname(out), exist_ok=True)
-    cols = ["tier", "rho", "B", "T", "alpha", "cvar_floor", "cvar_v1", "cvar_online",
+    cols = ["tier", "rho", "rho_real", "B", "T", "alpha", "cvar_floor", "cvar_v1", "cvar_online",
             "prize", "prize_pct", "v1_gain", "capture_pct", "residual_pct", "kappa"]
     with open(out, "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(cols)
         for r in rows:
-            w.writerow([r["tier"], r["rho"], r["B"], r["T"], r["alpha"]] +
+            w.writerow([r["tier"], r["rho"], r["rho_real"], r["B"], r["T"], r["alpha"]] +
                        [round(r[k], 4) for k in
                         ["cvar_floor", "cvar_v1", "cvar_online", "prize", "prize_pct",
                          "v1_gain", "capture_pct", "residual_pct", "kappa"]])

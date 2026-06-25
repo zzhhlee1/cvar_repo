@@ -3,7 +3,7 @@
 
 推论 3(恒等式):prize = (μ*−μ_F) + (Δ_F−Δ*) = tail_reduction − mean_sacrifice,
   Δ := μ − CVaR_α(尾偏差);tail_reduction = Δ_F−Δ*(尾缺口缩小);mean_sacrifice = μ_F−μ*(让出的均值)。
-跨 ladder 三档(ρ=0.95/1.25/1.67,δ=1.46)展示:contention 升 → Δ_F 升(非浓缩)→ tail_reduction 升 →
+跨 ladder 三档(ρ_target=0.95/1.25/1.67 → realized 1.0/1.25/1.67,δ=1.46)展示:contention 升 → Δ_F 升(非浓缩)→ tail_reduction 升 →
   prize 升;而 prize 之所以"只有"个位/十几 %,是因为 mean_sacrifice 吃掉了一部分 tail_reduction。
 => ladder 就是 Δ-曲线;价值是 tail-directed(花均值、把质量挪出坏尾)。
 
@@ -80,20 +80,20 @@ def main():
     print(f"③ prize 随 contention 升(1.5→8.3→16.6%): 容量收紧让'花均值换尾部'的交易逐步划算"
           f"(mean_sacrifice 相对 tail_reduction 收缩)。tail-directed: prize 小不是没动作,是动作大体由让均值支付。")
 
-    # regime 对照 δ=1 vs δ=1.46:regime_lift 可负 = S2 不稳健;δ 不是干净的浓缩旋钮
+    # regime 对照 δ=1 vs δ=1.46:regime_lift 可负 = S2 不稳健(桥②);δ 不是干净的浓缩旋钮
     p1 = [decomp(rho, 1.0)['prize'] for _, rho in TIERS]
     print(f"\n[regime 对照] prize δ=1 {[round(x,2) for x in p1]} vs δ=1.46 {[round(x,2) for x in pz]}"
-          f" → δ(regime 分歧)升、prize 反略降(regime_lift<0)= S2 不稳健;"
+          f" → δ(regime 分歧)升、prize 反略降(regime_lift<0)= S2 不稳健(桥②);"
           f"**δ≠浓缩旋钮,不可当 concentration 用**;contention 才是稳健的 prize 驱动。")
 
     out = os.path.join(os.path.dirname(__file__), "outputs", "delta_decomp.csv")
     with open(out, "w", newline="") as fh:
-        cols = ["tier", "rho", "delta", "B", "mu_F", "cvar_F", "Delta_F", "mu_S", "cvar_S",
+        cols = ["tier", "rho", "rho_real", "delta", "B", "mu_F", "cvar_F", "Delta_F", "mu_S", "cvar_S",
                 "Delta_S", "tail_reduction", "mean_sacrifice", "prize", "prize_pct", "fwd_gap"]
         w = csv.writer(fh)
         w.writerow(cols)
         for name, rho, dlt, r in rows:
-            w.writerow([name, rho, dlt, r["B"]] +
+            w.writerow([name, rho, round(r["rho_real"], 4), dlt, r["B"]] +
                        [round(r[k], 4) for k in ["mu_F", "cvar_F", "Delta_F", "mu_S", "cvar_S",
                         "Delta_S", "tail_reduction", "mean_sacrifice", "prize", "prize_pct", "fwd_gap"]])
     print(f"\n[written] {out}")

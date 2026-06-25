@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""画 Δ-分解图——读 outputs/delta_decomp.csv,不重算。
+"""画 Δ-分解图(实验 A,Layer 7 桥①)——读 outputs/delta_decomp.csv,不重算。
 
 每档(normal/tight/crisis)三根柱:tail-shortfall reduction (Δ_F−Δ*)、mean sacrifice (μ_F−μ*)、
 prize(= 二者之差)。直观展示**近抵消**:前两根几乎等高,prize 是那条小残差。
@@ -29,7 +29,7 @@ ax.bar(x + w, prize, w, label=r"prize $=$ tail red. $-$ mean sac.", color="#55A8
 for xi, p, pc in zip(x, prize, ppct):
     ax.annotate(f"{p:.2f}\n({pc:.1f}%)", (xi + w, p), ha="center", va="bottom", fontsize=8)
 ax.set_xticks(x)
-ax.set_xticklabels([f"{t}\n" + r"$\rho$=" + f"{r['rho']}, B={r['B']}" for t, r in zip(tiers, rows)])
+ax.set_xticklabels([f"{t}\n" + r"$\rho$=" + f"{float(r['rho_real']):.2f}, B={r['B']}" for t, r in zip(tiers, rows)])
 ax.set_ylabel("CVaR units (terminal revenue)")
 ax.legend(fontsize=8, loc="upper right")
 ax.set_title("Anatomy of the prize: tail reduction " + r"$\approx$" + " mean sacrifice;\n"

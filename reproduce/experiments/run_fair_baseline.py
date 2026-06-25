@@ -31,7 +31,7 @@ def main():
         print(f"{name:>8}{rho:>6.2f}{B:>3}  {res['cvar_floor']:>7.3f}{res['cvar_neutral']:>8.3f}"
               f"{res['cvar_best']:>7.3f}{res['cvar_online']:>8.3f}  "
               f"{res['prize_total_pct']:>6.1f}%{res['prize_neutral_pct']:>6.1f}%{res['prize_cvar_pct']:>8.1f}%")
-        rows.append(dict(tier=name, rho=rho, B=B, T=T, alpha=alpha,
+        rows.append(dict(tier=name, rho=rho, rho_real=round(ins.meta["rho_realized"], 4), B=B, T=T, alpha=alpha,
                          cvar_floor=res["cvar_floor"], cvar_neutral=res["cvar_neutral"],
                          cvar_best=res["cvar_best"], cvar_online=res["cvar_online"],
                          prize_total_pct=res["prize_total_pct"], prize_neutral_pct=res["prize_neutral_pct"],
