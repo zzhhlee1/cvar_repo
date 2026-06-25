@@ -83,6 +83,23 @@ def two_regime_instance(rho, divergence, *, T=10, alpha=0.2,
     return InstanceSpec(R=tuple(R), probs=probs, pi=tuple(pi), T=T, B=B, alpha=alpha, meta=meta)
 
 
+def self_check():
+    """Invariant assertions on the (rho,delta) -> (B, probs) transformation —
+    the critical bridge between calibration and the engines."""
+    calib = load_calibration()
+    for rho in (0.83, 1.25, 2.5):
+        for d in (1.0, 1.46, 3.0):
+            ins = two_regime_instance(rho, d, calib=calib)
+            for z, pr in enumerate(ins.probs):
+                assert abs(sum(pr) - 1.0) < 1e-9, f"rho={rho} d={d} regime{z}: probs sum {sum(pr)} != 1"
+                assert all(0.0 <= x <= 1.0 for x in pr), f"rho={rho} d={d} regime{z}: probs {pr} out of [0,1]"
+            assert abs(ins.probs[0][1] - ins.probs[1][1]) < 1e-12, "mid tier must be regime-invariant"
+            if ins.probs[0][2] > 1e-12:
+                assert abs(ins.probs[1][2] / ins.probs[0][2] - d) < 1e-6, f"jackpot peak/soft != delta={d}"
+            assert ins.B >= 1 and ins.T >= 1 and 0.0 < ins.alpha < 1.0, "B/T/alpha invariant violated"
+    return True
+
+
 if __name__ == "__main__":
     calib = load_calibration()
     print("=== 实例生成器自检(几个 (ρ,δ) 点)===")
@@ -94,3 +111,5 @@ if __name__ == "__main__":
             ins = two_regime_instance(rho, d, calib=calib)
             print(f"  ρ_target={rho} δ={d}: B={ins.B} ρ_real={ins.meta['rho_realized']} "
                   f"P_soft={tuple(round(x,3) for x in ins.probs[0])} P_peak={tuple(round(x,3) for x in ins.probs[1])}")
+    self_check()
+    print("  ✓ invariant self-check passed (probs sum=1, range, divergence=δ, mid-tier regime-invariant, B/T/α)")
